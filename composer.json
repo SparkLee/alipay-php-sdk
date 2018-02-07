@@ -16,11 +16,8 @@
     },
     "minimum-stability": "stable",
     "autoload": {
-        "psr-4": {
-            "SparkLee\\Alipay\\": ""
-        },
-        "files": [
-            "AopSdk.php"
+        "classmap": [
+            "./"
         ]
     }
 }
