@@ -8,7 +8,6 @@
  */
 
 require_once dirname ( __FILE__ ).DIRECTORY_SEPARATOR.'./../../AopSdk.php';
-require dirname ( __FILE__ ).DIRECTORY_SEPARATOR.'./../../config.php';
 
 class AlipayTradeService {
 
@@ -105,7 +104,7 @@ class AlipayTradeService {
 		if($ispage)
 		{
 			$result = $aop->pageExecute($request,"post");
-			echo $result;
+			// echo $result;
 		}
 		else 
 		{
@@ -226,7 +225,13 @@ class AlipayTradeService {
 	function writeLog($text) {
 		// $text=iconv("GBK", "UTF-8//IGNORE", $text);
 		//$text = characet ( $text );
-		file_put_contents ( dirname ( __FILE__ ).DIRECTORY_SEPARATOR."./../../log.txt", date ( "Y-m-d H:i:s" ) . "  " . $text . "\r\n", FILE_APPEND );
+		
+		// 如果PHP加载了SeasLog日志插件，则使用SeasLog记录日志
+		if(class_exists("\SeasLog")) {
+			\SeasLog::debug("支付宝手机网站支付SDK日志：{$text}");
+		} else {
+			file_put_contents ( dirname ( __FILE__ ).DIRECTORY_SEPARATOR."./../../log.txt", date ( "Y-m-d H:i:s" ) . "  " . $text . "\r\n", FILE_APPEND );
+		}
 	}
 	
 
